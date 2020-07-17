@@ -1,0 +1,14 @@
+{
+  "name": "---",
+  "image": "node:12.18.2-alpine",
+  "forwardPorts": [
+    8000, // Create React App
+  ],
+  "extensions": [
+    "jpoissonnier.vscode-styled-components"
+  ],
+  "settings": { 
+		"terminal.integrated.shell.linux": null
+  },
+  "postCreateCommand": "apk update && apk add git openssh vim",
+}
