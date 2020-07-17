@@ -8,12 +8,13 @@ const HEIGHT = WIDTH
 const INIT: Array<Cell> = Array.from({ length: WIDTH * HEIGHT }).map(_ => "EMPTY")
 
 export default () => {
-  const {board, set} = useBoardState(INIT)
+  const {board, set, winner} = useBoardState(INIT)
 
   return (
     <div>
       <GlobalStyle />
       <h1>tic tac toe</h1>
+      {winner || null}
       <Board board={board} set={set}/>
     </div>
   )

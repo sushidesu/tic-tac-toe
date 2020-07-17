@@ -3,7 +3,10 @@ import styled from "@emotion/styled"
 import { useBoardState } from "./hooks/useBoardState"
 import { Cell } from "./Cell"
 
-type Props = ReturnType<typeof useBoardState>
+type Props = {
+  board: ReturnType<typeof useBoardState>["board"]
+  set: ReturnType<typeof useBoardState>["set"]
+}
 type CellItem = {
   id: number
   cell: Cell
