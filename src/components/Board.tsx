@@ -1,33 +1,45 @@
 import React from "react"
 import styled from "@emotion/styled"
+import { useBoardState } from "./hooks/useBoardState"
 import { Cell } from "./Cell"
 
-type Props = {
-  cells: Array<Cell>
+type Props = ReturnType<typeof useBoardState>
+type CellItem = {
+  id: number
+  cell: Cell
 }
 
 const CELLS_PER_ROW = 3
 
-export const Board: React.FC<Props> = ({ cells }) => {
-  const row = (n: number) => cells?.filter((_, i) => Math.floor(i / CELLS_PER_ROW) === n - 1)
+export const Board: React.FC<Props> = ({ board, set }) => {
+  const rowIndex = (index: number) => Math.floor(index / CELLS_PER_ROW)
+  const rows: Array<Array<CellItem>> = []
+
+  board.forEach((cell, index) => {
+    const row = rowIndex(index)
+    const item: CellItem = {
+      id: index,
+      cell: cell,
+    }
+    if (rows[row]) {
+      rows[row].push(item)
+    } else {
+      rows.push([item])
+    }
+  })
 
   return (
     <Wrapper>
-      <Row>
-        {row(1).map((cell, i) => (
-          <Cell key={i} cell={cell}/>
-        ))}
-      </Row>
-      <Row>
-        {row(2).map((cell, i) => (
-          <Cell key={i} cell={cell}/>
-        ))}
-      </Row>
-      <Row>
-        {row(3).map((cell, i) => (
-          <Cell key={i} cell={cell}/>
-        ))}
-      </Row>
+      {rows.map((row, i) => (
+        <Row key={i}>
+          {row.map(({ cell, id }) => (
+            <Cell
+              key={id}
+              cell={cell}
+              onClick={() => set(id)} />
+          ))}
+        </Row>
+      ))}
     </Wrapper>
   )
 }

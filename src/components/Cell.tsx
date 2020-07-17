@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 
 type Props = {
   cell: Cell
+  onClick: () => void
 }
 
 const CellMap: { [key in Cell]: string } = {
@@ -11,8 +12,8 @@ const CellMap: { [key in Cell]: string } = {
   EMPTY: "",
 }
 
-export const Cell: React.FC<Props> = ({ cell }) => (
-  <Wrapper>{CellMap[cell]}</Wrapper>
+export const Cell: React.FC<Props> = ({ cell, onClick }) => (
+  <Wrapper onClick={onClick}>{CellMap[cell]}</Wrapper>
 )
 
 const Wrapper = styled.div`
